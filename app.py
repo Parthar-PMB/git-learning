@@ -1,4 +1,5 @@
-print ('Helo Git')
-print("Hello, Partha!")
-print('Branch A was here')
-print('Branch B was here')
+def greet(name):
+    return f"Hello, {name}!"
+
+if __name__ == "__main__":
+    print(greet("Partha"))
