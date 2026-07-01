@@ -1,10 +1,11 @@
-name: CI Pipeline
+name: Feature CI
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches:
+      - 'feature/**'
+      - 'fix/**'
+      - 'chore/**'
 
 jobs:
   test:
