@@ -66,7 +66,7 @@ jobs:
         with:
           name: build-output
           path: $BUILD_DIR/
-          retention-days: 7                       # keep builds for 7 days
+          retention-days: 10                       # keep builds for 7 days
 
   deploy-staging:
     runs-on: ubuntu-latest
@@ -80,13 +80,6 @@ jobs:
           name: build-output
           path: $BUILD_DIR/
 
-      - name: Verify build files
-        run: |
-          echo "Files received from build job:"
-          ls $BUILD_DIR/
-          echo "Version being deployed:"
-          cat $BUILD_DIR/version.txt
-
       - name: Deploy to staging
         run: |
           echo "Deploying $APP_NAME to version $(cat $BUILD_DIR/version.txt)..."
@@ -95,7 +88,6 @@ jobs:
           echo "Deployment to staging complete!"
         env:
           API_KEY: ${{ secrets.API_KEY }}
-          APP_ENV: ${{ vars.APP_ENV }}
           DEPLOY_URL: ${{secrets.DEPLOY_URL}} #uses staging secret
 
   deploy-production:
@@ -118,5 +110,4 @@ jobs:
           echo "Deployment to production complete!"
         env:
           API_KEY: ${{ secrets.API_KEY }}
-          APP_ENV: ${{ vars.APP_ENV }}
           DEPLOY_URL: ${{secrets.DEPLOY_URL}} # uses production secret
