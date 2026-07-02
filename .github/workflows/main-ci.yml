@@ -71,6 +71,8 @@ jobs:
   deploy-staging:
     runs-on: ubuntu-latest
     needs: build
+    env:
+      BUILD_DIR: 'dist'
     environment:
       name: staging # auto deploys, no approval needed
     steps:
@@ -93,6 +95,8 @@ jobs:
   deploy-production:
     runs-on: ubuntu-latest
     needs: deploy-staging
+    env:
+      BUILD_DIR: 'dist'
     environment:
       name: production # pauses here, waits for your approval
     steps:
